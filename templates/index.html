@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAEP - Sistema de Controle de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sistema de Controle de Estoque</h2>
+        <form method="POST" action="/login">
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" required>
+            
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+    
+    {% if mensagem %}
+    <div class="error-message">
+        <p>{{ mensagem }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>

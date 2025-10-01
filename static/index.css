@@ -1,0 +1,115 @@
+/* Configuração do corpo da página */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #4a5568;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container do login centralizado */
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Título do formulário */
+.login-container h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+/* Estilo dos labels */
+.login-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Estilo dos inputs */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background: #fafafa;
+}
+
+/* Foco nos inputs */
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    outline: none;
+    border-color: #3182ce;
+    background: white;
+}
+
+/* Estilo do botão */
+.login-container button {
+    width: 100%;
+    padding: 14px;
+    background: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover do botão */
+.login-container button:hover {
+    background: #2c5aa0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
+}
+
+/* Mensagem de erro */
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.error-message p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .login-container {
+        margin: 20px;
+        padding: 30px 25px;
+    }
+    
+    .error-message {
+        margin: 20px;
+        font-size: 13px;
+    }
+}
