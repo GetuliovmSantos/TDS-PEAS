@@ -61,7 +61,47 @@ def validar_usuario(usuario, senha):
     finally:
         close_db_connection(connection)
 
+# ==========================================
+# FUNÇÕES DE BUSCA DE PRODUTOS
+# ==========================================
 
+def buscar_produtos():
+    connection = get_db_connection()
+    if not connection:
+        return []
+    
+    try:
+        cursor = connection.cursor(pymysql.cursors.DictCursor)
+        sql = "SELECT * FROM Produto"
+        cursor.execute(sql)
+        produtos = cursor.fetchall()
+        return produtos
+    
+    except Exception as e:
+        print(f"Erro ao buscar produtos: {e}")
+        return []
+    
+    finally:
+        close_db_connection(connection)
+
+def buscar_produtos_por_nome(nome):
+    connection = get_db_connection()
+    if not connection:
+        return []
+    
+    try:
+        cursor = connection.cursor(pymysql.cursors.DictCursor)
+        sql = "SELECT * FROM Produto WHERE nome LIKE %s"
+        cursor.execute(sql, (f"%{nome}%",))
+        produtos = cursor.fetchall()
+        return produtos
+    
+    except Exception as e:
+        print(f"Erro ao buscar produtos por nome: {e}")
+        return []
+    
+    finally:
+        close_db_connection(connection)
 
 # ==========================================
 # FUNÇÃO DE TESTE DE CONEXÃO

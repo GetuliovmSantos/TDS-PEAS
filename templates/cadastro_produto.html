@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_produto.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Cadastro de Produtos</h1>
+        <a href="/home" class="btn-voltar">← Voltar</a>
+    </div>
+
+    <div class="container">
+        <div class="add-section">
+            <a href="/novo_produto" class="btn-add">+ Cadastrar Novo Produto</a>
+        </div>
+
+        <form action="/cadastro_produto" method="POST">
+            <input type="text" id="pesquisa" name="pesquisa" placeholder="Buscar produto por nome..." class="search-input">
+            <button type="submit" class="btn-search">🔍 Buscar</button>
+        </form>
+        
+        <div class="table-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Código Alt.</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Unidade</th>
+                        <th>Preço</th>
+                        <th>Estoque Mín.</th>
+                        <th>Estoque Atual</th>
+                        <th>Aplicação Veicular</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if produtos %}
+                        {% for produto in produtos %}
+                        <tr>
+                            <td>{{ produto.idProduto }}</td>
+                            <td>{{ produto.codigo }}</td>
+                            <td>{{ produto.codigo_alternativo or '-' }}</td>
+                            <td>{{ produto.nome }}</td>
+                            <td>{{ produto.descricao or '-' }}</td>
+                            <td>{{ produto.categoria or '-' }}</td>
+                            <td>{{ produto.unidade_medida or '-' }}</td>
+                            <td>R$ {{ "%.2f"|format(produto.preco or 0) }}</td>
+                            <td>{{ produto.estoque_minimo or '-' }}</td>
+                            <td>{{ produto.estoque_atual or 0 }}</td>
+                            <td>{{ produto.aplicacao_veicular or '-' }}</td>
+                            <td class="actions">
+                                <button class="btn-edit">✏️ Editar</button>
+                                <button class="btn-delete">🗑️ Excluir</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="12" class="no-products">Nenhum produto cadastrado.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
