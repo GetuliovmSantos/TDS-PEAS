@@ -1,6 +1,4 @@
 from flaskext.mysql import MySQL
-from werkzeug.security import check_password_hash
-import pymysql
 
 # Instância do MySQL para Flask
 mysql = MySQL()
@@ -41,16 +39,16 @@ def validar_usuario(usuario, senha):
         return None
     
     try:
-        cursor = connection.cursor(pymysql.cursors.DictCursor)
+        cursor = connection.cursor()
         sql = "SELECT * FROM Usuario WHERE usuario = %s"
         cursor.execute(sql, (usuario,))
         user_data = cursor.fetchone()
         
-        if user_data and user_data['senha'] == senha:
+        if user_data and user_data[3] == senha:  # senha é a 4ª coluna (índice 3)
             return {
-                'id': user_data['idUsuario'],
-                'nome': user_data['nome'],
-                'usuario': user_data['usuario']
+                'id': user_data[0],      # idUsuario
+                'nome': user_data[1],    # nome  
+                'usuario': user_data[2]  # usuario
             }
         return None
     
@@ -71,10 +69,14 @@ def buscar_produtos():
         return []
     
     try:
-        cursor = connection.cursor(pymysql.cursors.DictCursor)
+        cursor = connection.cursor()
         sql = "SELECT * FROM Produto"
         cursor.execute(sql)
         produtos = cursor.fetchall()
+
+        for produto in produtos:
+            print(produto)
+        
         return produtos
     
     except Exception as e:
@@ -90,9 +92,9 @@ def buscar_produtos_por_nome(nome):
         return []
     
     try:
-        cursor = connection.cursor(pymysql.cursors.DictCursor)
+        cursor = connection.cursor()
         sql = "SELECT * FROM Produto WHERE nome LIKE %s"
-        cursor.execute(sql, (f"%{nome}%",))
+        cursor.execute(sql, (nome,))
         produtos = cursor.fetchall()
         return produtos
     
@@ -102,6 +104,34 @@ def buscar_produtos_por_nome(nome):
     
     finally:
         close_db_connection(connection)
+
+
+# ==========================================
+# FUNÇÕES DE CADASTRO DE PRODUTOS
+# ==========================================
+
+def cadastrar_produto(codigo, codigo_alternativo, nome, descricao, categoria, unidade_medida, preco, estoque_minimo, estoque_atual, aplicacao_veicular):
+    connection = get_db_connection()
+    if not connection:
+        return False
+
+    try:
+        cursor = connection.cursor()
+        sql = """
+            INSERT INTO Produto (codigo, codigo_alternativo, nome, descricao, categoria, unidade_medida, preco, estoque_minimo, estoque_atual, aplicacao_veicular)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(sql, (codigo, codigo_alternativo, nome, descricao, categoria, unidade_medida, preco, estoque_minimo, estoque_atual, aplicacao_veicular))
+        connection.commit()
+        return True
+
+    except Exception as e:
+        print(f"Erro ao cadastrar produto: {e}")
+        return False
+
+    finally:
+        close_db_connection(connection)
+
 
 # ==========================================
 # FUNÇÃO DE TESTE DE CONEXÃO

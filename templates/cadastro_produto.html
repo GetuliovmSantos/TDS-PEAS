@@ -33,8 +33,6 @@
                         <th>Categoria</th>
                         <th>Unidade</th>
                         <th>Preço</th>
-                        <th>Estoque Mín.</th>
-                        <th>Estoque Atual</th>
                         <th>Aplicação Veicular</th>
                         <th>Ações</th>
                     </tr>
@@ -43,17 +41,15 @@
                     {% if produtos %}
                         {% for produto in produtos %}
                         <tr>
-                            <td>{{ produto.idProduto }}</td>
-                            <td>{{ produto.codigo }}</td>
-                            <td>{{ produto.codigo_alternativo or '-' }}</td>
-                            <td>{{ produto.nome }}</td>
-                            <td>{{ produto.descricao or '-' }}</td>
-                            <td>{{ produto.categoria or '-' }}</td>
-                            <td>{{ produto.unidade_medida or '-' }}</td>
-                            <td>R$ {{ "%.2f"|format(produto.preco or 0) }}</td>
-                            <td>{{ produto.estoque_minimo or '-' }}</td>
-                            <td>{{ produto.estoque_atual or 0 }}</td>
-                            <td>{{ produto.aplicacao_veicular or '-' }}</td>
+                            <td>{{ produto[0] }}</td>
+                            <td>{{ produto[1] }}</td>
+                            <td>{{ produto[2] or '-' }}</td>
+                            <td>{{ produto[3] or '-' }}</td>
+                            <td>{{ produto[4] or '-' }}</td>
+                            <td>{{ produto[5] or '-' }}</td>
+                            <td>{{ produto[6] or '-' }}</td>
+                            <td>R$ {{ "%.2f"|format(produto[7] or 0) }}</td>
+                            <td>{{ produto[10] or '-' }}</td>
                             <td class="actions">
                                 <button class="btn-edit">✏️ Editar</button>
                                 <button class="btn-delete">🗑️ Excluir</button>
