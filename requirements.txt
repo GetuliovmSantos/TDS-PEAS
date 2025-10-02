@@ -1,5 +1,23 @@
+# TDS-PEAS - Sistema de Controle de Estoque
+# Dependências Python do Projeto
+
+# Framework Web Principal
 Flask==2.3.3
+
+# Extensão MySQL para Flask
 flask-mysql==1.5.2
+
+# Driver MySQL para Python
 PyMySQL==1.1.0
+
+# WSGI utilities library para Flask
 Werkzeug==2.3.7
+
+# Biblioteca de criptografia (dependência do PyMySQL)
 cryptography==41.0.4
+
+# Utilitários opcionais para desenvolvimento
+python-dotenv==1.0.0
+
+# Para produção (opcional)
+gunicorn==21.2.0
