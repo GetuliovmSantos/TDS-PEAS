@@ -74,8 +74,6 @@ def buscar_produtos():
         cursor.execute(sql)
         produtos = cursor.fetchall()
 
-        for produto in produtos:
-            print(produto)
         
         return produtos
     
@@ -86,7 +84,7 @@ def buscar_produtos():
     finally:
         close_db_connection(connection)
 
-def buscar_produtos_por_nome(nome):
+def buscar_produto_por_nome(nome):
     connection = get_db_connection()
     if not connection:
         return []
@@ -105,6 +103,24 @@ def buscar_produtos_por_nome(nome):
     finally:
         close_db_connection(connection)
 
+def buscar_produto_por_id(produto_id):
+    connection = get_db_connection()
+    if not connection:
+        return None
+    
+    try:
+        cursor = connection.cursor()
+        sql = "SELECT * FROM Produto WHERE idProduto = %s"
+        cursor.execute(sql, (produto_id,))
+        produto = cursor.fetchone()
+        return produto
+    
+    except Exception as e:
+        print(f"Erro ao buscar produto por ID: {e}")
+        return None
+    
+    finally:
+        close_db_connection(connection)
 
 # ==========================================
 # FUNÇÕES DE CADASTRO DE PRODUTOS
@@ -132,6 +148,60 @@ def cadastrar_produto(codigo, codigo_alternativo, nome, descricao, categoria, un
     finally:
         close_db_connection(connection)
 
+
+# ==========================================
+# FUNÇÕES DE DELEÇÃO DE PRODUTOS
+# ==========================================   
+
+def deletar_produto(produto_id):
+    connection = get_db_connection()
+    if not connection:
+        return False
+
+    try:
+        cursor = connection.cursor()
+        sql = "DELETE FROM Produto WHERE idProduto = %s"
+        cursor.execute(sql, (produto_id,))
+        connection.commit()
+        return True
+
+    except Exception as e:
+        print(f"Erro ao deletar produto: {e}")
+        return False
+
+    finally:
+        close_db_connection(connection)
+
+# ==========================================
+# FUNÇÕES DE ATUALIZAÇÃO DE PRODUTOS
+# ==========================================
+
+def atualizacao_produto(codigo, codigo_alternativo, nome, descricao, categoria, unidade_medida, preco, estoque_minimo, aplicacao_veicular, produto_id):
+    connection = get_db_connection()
+    if not connection:
+        return False
+
+    try:
+        cursor = connection.cursor()
+        sql = """
+            UPDATE Produto 
+            SET codigo = %s, codigo_alternativo = %s, nome = %s, descricao = %s, 
+                categoria = %s, unidade_medida = %s, preco = %s, estoque_minimo = %s, 
+                aplicacao_veicular = %s
+            WHERE idProduto = %s
+        """
+        cursor.execute(sql, (codigo, codigo_alternativo, nome, descricao, categoria, 
+                           unidade_medida, preco, estoque_minimo, aplicacao_veicular, produto_id))
+        connection.commit()
+        return cursor.rowcount > 0  # Retorna True se alguma linha foi afetada
+
+    except Exception as e:
+        print(f"Erro ao atualizar produto: {e}")
+        connection.rollback()  # Reverter mudanças em caso de erro
+        return False
+
+    finally:
+        close_db_connection(connection)
 
 # ==========================================
 # FUNÇÃO DE TESTE DE CONEXÃO

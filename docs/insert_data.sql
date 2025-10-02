@@ -21,13 +21,13 @@ INSERT INTO `Usuario` (`nome`, `usuario`, `senha`) VALUES
 -- Inserções na tabela Produto
 -- -----------------------------------------------------
 INSERT INTO `Produto` (`codigo`, `codigo_alternativo`, `nome`, `descricao`, `categoria`, `unidade_medida`, `preco`, `estoque_minimo`, `estoque_atual`, `aplicacao_veicular`) VALUES
-('MT001', 'ALT001', 'Óleo Motor 5W30 Sintético', 'Óleo lubrificante sintético para motores modernos', 'Lubrificantes', 'Litro', 45.90, 10, 25, 'Honda Civic, Toyota Corolla, Nissan Sentra'),
-('FR002', 'ALT002', 'Pastilha de Freio Dianteira', 'Pastilha de freio cerâmica de alta performance', 'Freios', 'Jogo', 89.50, 5, 15, 'VW Golf, Audi A3, Ford Focus'),
-('FT003', 'ALT003', 'Filtro de Ar Esportivo', 'Filtro de ar de alto fluxo lavável', 'Filtros', 'Unidade', 125.00, 3, 8, 'Honda Civic Type R, Toyota GR Yaris'),
-('PH004', 'ALT004', 'Farol LED Principal', 'Farol de LED com luz de circulação diurna', 'Iluminação', 'Par', 350.00, 2, 6, 'VW Jetta, Honda Accord, Toyota Camry'),
-('SU005', 'ALT005', 'Amortecedor Traseiro', 'Amortecedor a gás pressurizado', 'Suspensão', 'Unidade', 180.75, 4, 12, 'Chevrolet Onix, Hyundai HB20, Ford Ka'),
-('MT006', 'ALT006', 'Fluido de Freio DOT 4', 'Fluido sintético para sistemas de freio ABS', 'Fluidos', 'Litro', 28.90, 8, 20, 'Universal - Todos os veículos'),
-('EL007', 'ALT007', 'Bateria 60Ah', 'Bateria automotiva livre de manutenção', 'Elétrica', 'Unidade', 295.00, 3, 9, 'Fiat Uno, Chevrolet Celta, Ford Fiesta');
+('MT001', 'ALT001', 'Óleo Motor 5W30 Sintético', 'Óleo lubrificante sintético para motores modernos', 'Lubrificantes', 'L', 45.90, 10, 25, 'Honda Civic, Toyota Corolla, Nissan Sentra'),
+('FR002', 'ALT002', 'Pastilha de Freio Dianteira', 'Pastilha de freio cerâmica de alta performance', 'Freios', 'UN', 89.50, 5, 15, 'VW Golf, Audi A3, Ford Focus'),
+('FT003', 'ALT003', 'Filtro de Ar Esportivo', 'Filtro de ar de alto fluxo lavável', 'Filtros', 'UN', 125.00, 3, 8, 'Honda Civic Type R, Toyota GR Yaris'),
+('PH004', 'ALT004', 'Farol LED Principal', 'Farol de LED com luz de circulação diurna', 'Iluminação', 'UN', 350.00, 2, 6, 'VW Jetta, Honda Accord, Toyota Camry'),
+('SU005', 'ALT005', 'Amortecedor Traseiro', 'Amortecedor a gás pressurizado', 'Suspensão', 'UN', 180.75, 4, 12, 'Chevrolet Onix, Hyundai HB20, Ford Ka'),
+('MT006', 'ALT006', 'Fluido de Freio DOT 4', 'Fluido sintético para sistemas de freio ABS', 'Fluidos', 'L', 28.90, 8, 20, 'Universal - Todos os veículos'),
+('EL007', 'ALT007', 'Bateria 60Ah', 'Bateria automotiva livre de manutenção', 'Elétrica', 'UN', 295.00, 3, 9, 'Fiat Uno, Chevrolet Celta, Ford Fiesta');
 
 -- -----------------------------------------------------
 -- Inserções na tabela Movimentacao

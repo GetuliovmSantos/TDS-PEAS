@@ -34,6 +34,7 @@
                         <th>Unidade</th>
                         <th>Preço</th>
                         <th>Aplicação Veicular</th>
+                        <th>Quantidade Mínima</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -50,9 +51,10 @@
                             <td>{{ produto[6] or '-' }}</td>
                             <td>R$ {{ "%.2f"|format(produto[7] or 0) }}</td>
                             <td>{{ produto[10] or '-' }}</td>
+                            <td>{{ produto[8] or '-' }}</td>
                             <td class="actions">
-                                <button class="btn-edit">✏️ Editar</button>
-                                <button class="btn-delete">🗑️ Excluir</button>
+                                <a href="/editar_produto/{{ produto[0] }}" class="btn-edit">✏️ Editar</a>
+                                <a href="/delete_produto/{{ produto[0] }}" class="btn-delete">🗑️ Excluir</a>
                             </td>
                         </tr>
                         {% endfor %}

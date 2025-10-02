@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
-from bd import init_db, validar_usuario, buscar_produtos, buscar_produtos_por_nome, cadastrar_produto
+from bd import init_db, validar_usuario, buscar_produtos, buscar_produto_por_nome, buscar_produto_por_id, cadastrar_produto, deletar_produto, atualizacao_produto
 
 app = Flask(__name__)
 init_db(app)
@@ -48,11 +48,52 @@ def cadastro_produto():
         print(pesquisa)
 
         if pesquisa:
-            produtos = buscar_produtos_por_nome(pesquisa)
+            produtos = buscar_produto_por_nome(pesquisa)
         else:
             produtos = buscar_produtos()
 
         return render_template("cadastro_produto.html", nome=usuario_logado['nome'], produtos=produtos)
+    else:
+        return redirect(url_for('main'))
+    
+@app.route("/delete_produto/<int:produto_id>")
+def delete_produto(produto_id):
+    if usuario_logado:
+        
+        print(deletar_produto(produto_id))
+
+        return redirect(url_for('cadastro_produto'))
+    else:
+        return redirect(url_for('main'))
+
+@app.route("/editar_produto/<int:produto_id>")
+def editar_produto(produto_id):
+    if usuario_logado:
+        produto = buscar_produto_por_id(produto_id)
+        
+        if produto:
+            return render_template("editar_produto.html", nome=usuario_logado['nome'], produto=produto)
+        else:
+            return redirect(url_for('cadastro_produto'))
+    else:
+        return redirect(url_for('main'))
+    
+@app.route("/atualizar_produto/<int:produto_id>", methods=["POST"])
+def atualizar_produto(produto_id):
+    if usuario_logado:
+        codigo = request.form.get("codigo")
+        codigo_alternativo = request.form.get("codigo_alternativo")
+        nome = request.form.get("nome")
+        descricao = request.form.get("descricao")
+        categoria = request.form.get("categoria")
+        unidade_medida = request.form.get("unidade_medida")
+        preco = request.form.get("preco", "0")
+        estoque_minimo = request.form.get("estoque_minimo")
+        aplicacao_veicular = request.form.get("aplicacao_veicular")
+
+        atualizacao_produto(codigo, codigo_alternativo, nome, descricao, categoria, unidade_medida, float(preco), estoque_minimo, aplicacao_veicular, produto_id)
+
+        return redirect(url_for('cadastro_produto'))
     else:
         return redirect(url_for('main'))
 

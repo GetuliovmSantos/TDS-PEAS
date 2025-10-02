@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar_produto.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Editar Produto</h1>
+        <a href="/cadastro_produto" class="btn-voltar">← Voltar</a>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <form action="/atualizar_produto/{{ produto[0] }}" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="codigo">Código</label>
+                        <input type="text" id="codigo" name="codigo" required maxlength="50"
+                            placeholder="Digite o código do produto" value="{{ produto[1] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo_alternativo">Código Alternativo</label>
+                        <input type="text" id="codigo_alternativo" name="codigo_alternativo" maxlength="50"
+                            placeholder="Código alternativo (opcional)" value="{{ produto[2] }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Nome do Produto</label>
+                    <input type="text" id="nome" name="nome" required maxlength="150"
+                        placeholder="Digite o nome do produto" value="{{ produto[3] }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="4"
+                        placeholder="Descrição detalhada do produto (opcional)">{{ produto[4] }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="categoria">Categoria</label>
+                        <input type="text" id="categoria" name="categoria" required maxlength="50"
+                            placeholder="Categoria do produto" value="{{ produto[5] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="unidade_medida">Unidade de Medida</label>
+                        <select id="unidade_medida" name="unidade_medida" required value="{{ produto[6] }}">
+                            <option value="">Selecione uma unidade</option>
+                            <option value="UN" {% if produto[6] == "UN" %}selected{% endif %}>Unidade (UN)</option>
+                            <option value="KG" {% if produto[6] == "KG" %}selected{% endif %}>Quilograma (KG)</option>
+                            <option value="L" {% if produto[6] == "L" %}selected{% endif %}>Litro (L)</option>
+                            <option value="M" {% if produto[6] == "M" %}selected{% endif %}>Metro (M)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="preco">Preço (R$)</label>
+                        <input type="number" id="preco" name="preco" required step="0.01" min="0" placeholder="0.00" value="{{ produto[7] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="estoque_minimo">Estoque Mínimo</label>
+                        <input type="number" id="estoque_minimo" name="estoque_minimo" required min="0"
+                            placeholder="Quantidade mínima em estoque" value="{{ produto[8] }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="aplicacao_veicular">Aplicação Veicular</label>
+                    <input type="text" id="aplicacao_veicular" name="aplicacao_veicular" required maxlength="200"
+                        placeholder="Ex: Honda Civic 2010-2015, Toyota Corolla 2008-2012" value="{{ produto[10] }}">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="window.location.href='/cadastro_produto'"
+                        class="btn btn-cancel">Cancelar</button>
+                    <button type="submit" class="btn btn-save">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

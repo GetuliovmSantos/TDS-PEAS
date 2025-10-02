@@ -56,5 +56,6 @@ CREATE TABLE IF NOT EXISTS `saep_db`.`Movimentacao` (
     REFERENCES `saep_db`.`Usuario` (`idUsuario`),
   CONSTRAINT `fk_Movimentacao_Produto1`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `saep_db`.`Produto` (`idProduto`))
+    REFERENCES `saep_db`.`Produto` (`idProduto`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
