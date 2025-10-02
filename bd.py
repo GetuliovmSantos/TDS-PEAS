@@ -204,6 +204,53 @@ def atualizacao_produto(codigo, codigo_alternativo, nome, descricao, categoria, 
         close_db_connection(connection)
 
 # ==========================================
+# FUNÇÃO DE MOVIMENTAÇÃO DE ESTOQUE
+# ==========================================
+
+def movimentacao_estoque(produto_id, quantidade, tipo_movimentacao, id_usuario):
+    connection = get_db_connection()
+    if not connection:
+        return False
+
+    try:
+        cursor = connection.cursor()
+
+        # Atualiza o estoque atual do produto
+        if tipo_movimentacao == 'entrada':
+            sql_update = "UPDATE Produto SET estoque_atual = estoque_atual + %s WHERE idProduto = %s"
+        elif tipo_movimentacao == 'saida':
+            quantidade_atual = buscar_produto_por_id(produto_id)[9]  
+
+            print(quantidade_atual, quantidade)
+            if quantidade > quantidade_atual:
+                return False
+            sql_update = "UPDATE Produto SET estoque_atual = estoque_atual - %s WHERE idProduto = %s"
+        else:
+            print("Tipo de movimentação inválido.")
+            return False
+
+        cursor.execute(sql_update, (quantidade, produto_id))
+
+        # Registra a movimentação no histórico
+        sql_insert = """
+            INSERT INTO Movimentacao (idProduto, quantidade, tipo_movimentacao, data_movimentacao, idUsuario)
+            VALUES (%s, %s, %s, NOW(), %s)
+        """
+        cursor.execute(sql_insert, (produto_id, quantidade, tipo_movimentacao, id_usuario))
+
+        connection.commit()
+        return True
+
+    except Exception as e:
+        print(f"Erro ao movimentar estoque: {e}")
+        connection.rollback()  # Reverter mudanças em caso de erro
+        return False
+
+    finally:
+        close_db_connection(connection)
+
+
+# ==========================================
 # FUNÇÃO DE TESTE DE CONEXÃO
 # ==========================================
 

@@ -1,0 +1,222 @@
+/* CSS para Gestão de Estoque */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.btn-voltar {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color: #5a6268;
+}
+
+/* Container principal */
+.container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Tabela */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.products-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.products-table th {
+    background-color: #f8f9fa;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: bold;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+}
+
+.products-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.products-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Alertas de estoque */
+.products-table td:nth-child(6) {
+    font-weight: bold;
+}
+
+/* Estoque baixo - linha vermelha quando estoque atual < estoque mínimo */
+.estoque_baixo {
+    background-color: #f8d7da !important;
+    border-left: 4px solid #dc3545;
+}
+
+.estoque_baixo td {
+    color: #721c24 !important;
+}
+
+.estoque_baixo:hover {
+    background-color: #f5c6cb !important;
+}
+
+/* Destaque especial para a coluna de quantidade atual quando estoque baixo */
+.estoque_baixo td:nth-child(6) {
+    background-color: #dc3545 !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Ações */
+.actions {
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px;
+}
+
+.movement-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    margin: 0;
+}
+
+/* Botões de movimentação */
+.btn-entrada,
+.btn-saida {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    min-width: 70px;
+    flex-shrink: 0;
+}
+
+.btn-entrada {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-entrada:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+.btn-saida {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-saida:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Campo de quantidade */
+.quantidade_produto {
+    width: 70px;    
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: center;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.quantidade_produto:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem rgba(0,123,255,0.25);
+}
+
+
+/* Status visual dos produtos */
+.produto-row {
+    transition: background-color 0.3s;
+}
+
+.produto-row.estoque-critico:hover {
+    background-color: #f5c6cb !important;
+}
+
+.produto-row.estoque-baixo:hover {
+    background-color: #ffeaa7 !important;
+}
+
+.produto-row.estoque-bom:hover {
+    background-color: #c3e6cb !important;
+}
+
+/* Alertas de estoque */
+.alert {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}

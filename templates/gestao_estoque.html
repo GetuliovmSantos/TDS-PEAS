@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gestao_estoque.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Cadastro de Produtos</h1>
+        <a href="/home" class="btn-voltar">← Voltar</a>
+    </div>
+
+    <div class="container">
+        <div class="table-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Código Alt.</th>
+                        <th>Nome</th>
+                        <th>Quantidade Mínima</th>
+                        <th>Quantidade Atual</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if produtos %}
+                    {% for produto in produtos %}
+                    <tr class="{{ 'estoque_baixo' if produto[9] < produto[8] else '' }}">
+                        <td>{{ produto[0] }}</td>
+                        <td>{{ produto[1] }}</td>
+                        <td>{{ produto[2] or '-' }}</td>
+                        <td>{{ produto[3] or '-' }}</td>
+                        <td>{{ produto[8] or '-' }}</td>
+                        <td>{{ produto[9] or '0' }}</td>
+                        <td class="actions">
+                            <form action="/movimentar_estoque/{{ produto[0] }}" method="POST" class="movement-form">
+                                <input type="number" name="quantidade_produto" 
+                                       id="quantidade_{{ produto[0] }}" 
+                                       placeholder="Quant." class="quantidade_produto" 
+                                       required>
+                                <button type="submit" name="tipo_movimento" value="entrada" class="btn-entrada">
+                                    📥 Entrada
+                                </button>
+                                <button type="submit" name="tipo_movimento" value="saida" class="btn-saida">
+                                    📤 Saída
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="12" class="no-products">Nenhum produto cadastrado.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

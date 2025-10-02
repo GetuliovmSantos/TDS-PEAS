@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
-from bd import init_db, validar_usuario, buscar_produtos, buscar_produto_por_nome, buscar_produto_por_id, cadastrar_produto, deletar_produto, atualizacao_produto
+from bd import init_db, validar_usuario, buscar_produtos, buscar_produto_por_nome, buscar_produto_por_id, cadastrar_produto, deletar_produto, atualizacao_produto, movimentacao_estoque
 
 app = Flask(__name__)
 init_db(app)
@@ -121,6 +121,34 @@ def salvar_produto():
 
         return redirect(url_for('cadastro_produto'))
 
+    else:
+        return redirect(url_for('main'))
+
+
+@app.route("/gestao_estoque")
+def gestao_estoque():
+    if usuario_logado:
+
+        produtos = buscar_produtos()
+
+        # Ordenar produtos por nome (índice 3 da tupla)
+        produtos = sorted(produtos, key=lambda x: x[3].lower())
+
+        print(produtos)
+
+        return render_template("gestao_estoque.html", nome=usuario_logado['nome'], produtos=produtos)
+    else:
+        return redirect(url_for('main'))
+
+@app.route("/movimentar_estoque/<int:produto_id>", methods=["POST"])
+def movimentar_estoque(produto_id):
+    if usuario_logado:
+        quantidade = request.form.get("quantidade_produto")
+        tipo_movimento = request.form.get("tipo_movimento")
+
+        movimentacao_estoque(produto_id, int(quantidade), tipo_movimento, usuario_logado['id'])
+
+        return redirect(url_for('gestao_estoque'))
     else:
         return redirect(url_for('main'))
 
