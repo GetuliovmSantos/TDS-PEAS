@@ -2,17 +2,25 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Página Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistema de Controle de Estoque</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    <div class="welcome">
-        Bem-vindo ao sistema {{ nome }}!
+    <div class="header">
+        <h1>Sistema de Controle de Estoque</h1>
+        <a href="/logout" class="btn-voltar">Logout</a>
     </div>
-    <div class="options">
-        <a href="/cadastro_produto" class="option-btn">Cadastro de Produto</a>
-        <a href="/gestao_estoque" class="option-btn">Gestão de Estoque</a>
-        <a href="/logout" class="option-btn">Logout</a>
+
+    <div class="container">
+        <div class="welcome">
+            Bem-vindo ao sistema, {{ nome }}!
+        </div>
+        
+        <div class="options">
+            <a href="/cadastro_produto" class="option-btn">📦 Cadastro de Produto</a>
+            <a href="/gestao_estoque" class="option-btn">📊 Gestão de Estoque</a>
+        </div>
     </div>
 </body>
 </html>
